@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="fileInput" multiple="multiple"/>
+</body>
+
+<script>
+  const fileInput = document.getElementById('fileInput')
+  reader = new FileReader()
+  fileInput.onchange = (e) => {
+    reader.readAsDataURL(e.target.files[0])
+  }
+  reader.onload = (e) => {
+    console.log(e.target.result)
+    const img = document.createElement('img')
+    img.src = e.target.result
+    document.body.appendChild(img)
+  }
+</script>
+</html>

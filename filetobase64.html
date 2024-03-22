@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="fileInput" multiple="multiple">
+  <div>file 转 base64</div>
+  <img id="file2base64">
+</body>
+
+<script>
+const fileInput = document.getElementById('fileInput')
+fileInput.onchange = (e) => {
+  const file = e.target.files[0]
+  const reader = new FileReader()
+  reader.readAsDataURL(file)
+  reader.onload = (e) => {
+    let result = e.target.result
+    const base64Img = document.getElementById('file2base64')
+    base64Img.src = result
+    console.log(result)
+  }
+}
+</script>
+</html>

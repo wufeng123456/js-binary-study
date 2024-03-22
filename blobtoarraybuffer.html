@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="fileInput" multiple="multiple"/>
+</body>
+
+<script>
+const fileInput = document.getElementById('fileInput')
+let file = ''
+fileInput.addEventListener('change', (e) => {
+  file = e.target.files[0]
+  let buffer = null
+  const reader = new FileReader()
+  reader.readAsArrayBuffer(file)
+  reader.onload = e => {
+    buffer = e.target.result
+    console.log(buffer, 'buffer')
+    let length = buffer.byteLength
+    let str = ''
+    for (let i = 0; i <= length - 8; i + 8) {
+      str = str + String.fromCharCode.apply(null, new Uint8Array(buffer.slice(i, 8)))
+    }
+    console.log(str)
+    const base64 = btoa(str)
+    console.log(base64, 'base64')
+    const base64Url = "data:image/jpeg;base64," + base64
+
+    const img = document.createElement('img')
+    img.src = base64Url
+    document.body.appendChild(img)
+  }
+})
+</script>
+</html>
